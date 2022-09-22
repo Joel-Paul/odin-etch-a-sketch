@@ -1,15 +1,19 @@
 
-const GRID_SIZE = 16;
+const MAX_SIZE = 100;
+const DEFAULT_SIZE = 16;
 
 const grid = document.querySelector('.grid');
 
-createGrid();
+const sizeButton = document.querySelector('button');
+sizeButton.addEventListener('click', changeSize);
 
-function createGrid() {
-  for (let y = 0; y < GRID_SIZE; y++) {
+createGrid(16);
+
+function createGrid(size) {
+  for (let y = 0; y < size; y++) {
     const row = createRow();
     
-    for (let x = 0; x < GRID_SIZE; x++) {
+    for (let x = 0; x < size; x++) {
       row.appendChild(createSquare());
     }
 
@@ -32,4 +36,21 @@ function createSquare() {
 
 function hoverSquare(e) {
   e.target.style.backgroundColor = 'black';
+}
+
+function changeSize() {
+  let size = +prompt('Enter a new canvas size:', DEFAULT_SIZE);
+  if (isNaN(size) || size < 1 || size > MAX_SIZE) {
+    alert('Invalid size, defaulting to ' + DEFAULT_SIZE);
+    size = DEFAULT_SIZE;
+  }
+
+  clearGrid();
+  createGrid(size);
+}
+
+function clearGrid() {
+  while (grid.firstChild) {
+    grid.removeChild(grid.firstChild);
+  }
 }
