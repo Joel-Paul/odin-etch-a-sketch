@@ -25,6 +25,11 @@ function createRow() {
 
 function createSquare() {
   const square = document.createElement('div');
-  square.classList.add('square')
+  square.classList.add('square');
+  square.addEventListener('mouseover', hoverSquare);
   return square;
+}
+
+function hoverSquare(e) {
+  e.target.style.backgroundColor = 'black';
 }
